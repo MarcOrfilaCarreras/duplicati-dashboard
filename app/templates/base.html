@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}">
+    {% block head %}
+    {% endblock %}
+    <title>{{ text.title }}</title>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>{{ text.title }}</h1>
+        
+        <div class="sidebar-links">
+            <h2><img src="{{url_for('static', filename='img/hosts.png')}}" alt=""><a href="{{ url_for('hosts') }}">{{ text.hosts }}</a></h2>
+            <h2><img src="{{url_for('static', filename='img/tasks.png')}}" alt=""><a href="{{ url_for('tasks') }}">{{ text.tasks }}</a></h2>
+            <h2><img src="{{url_for('static', filename='img/settings.png')}}" alt=""><a href="{{ url_for('settings') }}">{{ text.settings }}</a></h2>
+        </div>
+
+        <h4>{{ text.made_by }} <a href="https://github.com/MarcOrfilaCarreras" target="_blank">{{ text.author }}</a></h4>
+    </div>
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+</html>

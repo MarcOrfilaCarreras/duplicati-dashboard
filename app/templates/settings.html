@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/hosts.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{ text.settings }}</h1>
+
+    <div class="content-list">
+        <form action="{{ url_for('settingsSave') }}" method="post" class="add-form">
+            <ul>
+                <li>
+                    <label for="host">{{ text.settings_host_label }}</label>
+                    <input class="form-input" type="text" name="host" id="host" value="{{ config['settings']['host'] }}" placeholder="{{ text.settings_host_hint }}" autocomplete="off" minlength="1" required="required">
+                </li>
+                <li>
+                    <label for="user">{{ text.settings_user_label }}</label>
+                    <input class="form-input" type="text" name="user" id="user" value="{{ config['settings']['user'] }}" placeholder="{{ text.settings_user_hint }}" autocomplete="off" minlength="1" required="required">
+                </li>
+                <li>
+                    <label for="password">{{ text.settings_password_label }}</label>
+                    <input class="form-input" type="text" name="password" id="password" value="{{ config['settings']['password'] }}" placeholder="{{ text.settings_password_hint }}" autocomplete="off" minlength="1" required="required">
+                </li>
+                <li>
+                    <label for="database">{{ text.settings_database_label }}</label>
+                    <input class="form-input" type="text" name="database" id="database" value="{{ config['settings']['database'] }}" placeholder="{{ text.settings_database_hint }}" autocomplete="off" minlength="1" required="required">
+                </li>
+             </ul>
+            <button type="submit">{{ text.save }}</button>  
+        </form>
+    </div>
+{% endblock %}

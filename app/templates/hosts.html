@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ text.hosts }}</h1>
+    <button type="button"><a href="{{ url_for('hostsAdd') }}">{{ text.add_host }}</a></button>
+
+    <div class="content-list">
+        {% for h in hosts %}
+            <div class="content-list-item">
+                <a href="{{ url_for('hostView', id=h[0]) }}">{{ h[1] }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

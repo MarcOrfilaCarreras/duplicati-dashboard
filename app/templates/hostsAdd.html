@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/hosts.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{ text.hosts }}</h1>
+
+    <div class="content-list">
+        <form action="{{ url_for('hostAdd') }}" method="post" class="add-form">
+            <ul>
+                <li>
+                    <label for="name">{{ text.add_name_label }}</label>
+                    <input class="form-input" type="text" name="id" id="id" required="required" value="{{ hostId }}" hidden="">
+                    <input class="form-input" type="text" name="name" id="name" placeholder="{{ text.add_name_hint }}" autocomplete="off" minlength="1" required="required">
+                </li>
+            </ul>
+            <button type="submit">{{ text.add_host }}</button>  
+        </form>
+    </div>
+{% endblock %}

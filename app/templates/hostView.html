@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/hosts.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1><a href="{{ url_for('hosts') }}">{{ text.hosts }}</a> / {{ id }} </h1>
+<div class="content-list">
+    {% for t in tasks %}
+        <div class="content-list-item">
+            <a class="content-list-item-expand">
+                {% if t[5]=="Success" %}
+                    <img class="content-list-item-img" src="{{url_for('static', filename='img/greenResult.png')}}" />
+                {% else %}
+                    <img class="content-list-item-img" src="{{url_for('static', filename='img/redResult.png')}}" />
+                {% endif %}
+                
+                {{ t[1] }}
+            </a>
+            <div class="content-list-item-expand-data">
+                <h4><strong>{{ text.task_size }}</strong>: {{ t[4]|round(2) }} MB</h4>
+                <h4><strong>{{ text.task_last_result }}</strong>: {{ t[5] }}</h4>
+                <h4><strong>{{ text.task_versions }}</strong>: {{ t[6] }}</h4>
+            </div>
+            <h5>{{ text.last_backup }} {{ t[3] }}</h5>
+        </div>
+    {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='js/collapsable.js') }}"></script>
+
+{% endblock %}

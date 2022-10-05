@@ -1,0 +1,26 @@
+.add-form {
+    display: inline;
+}
+
+.add-form > ul > li > label{
+    padding-right: 2em;
+}
+
+.add-form > ul > li > input {
+    width: 25vw;
+    background: #181818;
+}
+
+li + li {
+    margin-top: 2vh;
+}
+
+.add-form > button {
+    display:block;
+    margin-top: 2em;
+}
+
+.content-list-item-expand-data > h6 {
+    padding: 0 !important;
+    margin-bottom: 0.5em !important;
+}

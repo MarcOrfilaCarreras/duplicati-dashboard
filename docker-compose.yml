@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  database:
+    image: mariadb
+    container_name: database
+    command: --init-file /data/application/init.sql
+    volumes:
+        - ./db.sql:/data/application/init.sql
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+  
+  web:
+    image: ghcr.io/marcorfilacarreras/duplicati-dashboard:latest
+    container_name: dashboard
+    ports:
+      - "8080:7575"
+    links:
+      - "database:database"

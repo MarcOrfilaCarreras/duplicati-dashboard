@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.github
+docker-compose.yml
+Dockerfile
+PWD
+PWD.yml
+README.md
+.dccache

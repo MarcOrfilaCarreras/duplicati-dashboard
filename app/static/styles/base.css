@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #181818;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+h2, label {
+    color: white;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+h4 {
+    color: #767676;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+h5 {
+    display: inline;
+    color: #767676;
+    float: right;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+input {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    color: #ffffff;
+    background: #181818;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+}
+
+button {
+    margin: 0;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    height: auto;
+    width: auto;
+
+    border: none;
+    border-radius: 5px;
+    background: #2670b9 !important;
+    color: white;
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    height: 1em;
+    vertical-align: middle;
+    margin-right: 1em;
+}
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-left: 2%;
+    padding-right: 2%;
+
+    background: #212121;
+}
+
+.sidebar > h1 {
+    text-align: center;
+}
+
+.sidebar > h4 {
+    width: 200px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    padding-left: 2%;
+    padding-right: 2%;
+
+    text-align: center;
+}
+
+.content {
+    margin-left: 225px;
+    padding-left: 5%;
+    padding-right: 2%;
+}
+
+.content-list {
+    padding: 1em;
+    margin-top: 1em;
+
+    background: #212121;
+    border-radius: 5px;
+}
+
+.content-list-item {
+    padding: 2em;
+    border: 1px solid #2B2B2B;
+    border-radius: 5px;
+}
+
+.content-list-item + .content-list-item {
+    margin-top: 1em;
+}
+
+.content-list-item-expand-data {
+    display: none;
+    color: #ffffff;
+}
