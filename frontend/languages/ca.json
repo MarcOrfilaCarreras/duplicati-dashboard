@@ -1,0 +1,20 @@
+{
+    "hosts": "Equips",
+    "tasks": "Tasques",
+    "options": "Opcions",
+    "add_host": "Afegir equip",
+    "id": "ID",
+    "name": "Nom",
+    "last_backup": "Darrera còpia de seguretat",
+    "task_versions": "Versions",
+    "creation_date": "Data de creació",
+    "actions": "Accions",
+    "host": "Equip",
+    "result": "Resultat",
+    "submit": "Enviar",
+    "size": "Tamany",
+    "view": "Veure",
+    "delete": "Eliminar",
+    "generated_by_the_program": "Generat pel programa",
+    "name_hint": "El meu Pc"
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+</head>
+<body style="background: #111827;">
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+
+    <div class="flex flex-wrap">
+      <aside class="sidebar w-64" aria-label="Sidebar">
+        <div class="overflow-y-auto py-4 px-3 rounded bg-gray-800">          
+          <ul class="space-y-2">
+            <li>
+              <a href="{{ url_for('viewHostsList') }}" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">{{ text.hosts }}</span>
+              </a>
+            </li>
+              <li>
+                <a href="{{ url_for('viewTasksList') }}" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"></path><path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"></path></svg>
+                  <span class="flex-1 ml-3 whitespace-nowrap">{{ text.tasks }}</span>
+                </a>
+              </li>
+          </ul>
+        </div>
+      </aside>
+      <div>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+
+</body>
+</html>

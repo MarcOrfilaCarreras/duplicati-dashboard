@@ -1,0 +1,5 @@
+{
+    "settings": {
+        "api": "http://duplicati_dashboard_backend:80"
+    }
+}

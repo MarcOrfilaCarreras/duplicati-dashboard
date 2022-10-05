@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+    <!-- Title -->
+    <h1 class="items-center text-3xl font-extrabold text-white flex">{{ text.hosts}}</h1>
+
+    <!-- Dropdown button -->
+    <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="space text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type="button">{{ text.options }} <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+    <div id="dropdown" class="hidden z-10 w-44 rounded divide-y divide-gray-100 shadow bg-gray-700">
+        <ul class="py-1 text-sm text-gray-200" aria-labelledby="dropdownDefault">
+            <li><a href="{{ url_for('viewHostsCreate') }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.add_host }}</a></li>
+        </ul>
+    </div>
+    <!-- End Dropdown button -->
+
+    <!-- Hosts table -->
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <table class="list w-full text-sm text-left text-gray-400">
+            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                <tr>
+                    <th scope="col" class="py-3 px-6">{{ text.id }}</th>
+                    <th scope="col" class="center py-3 px-6">{{ text.name }}</th>
+                    <th scope="col" class="center py-3 px-6">{{ text.last_backup }}</th>
+                    <th scope="col" class="center py-3 px-6">{{ text.actions }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in data["Data"] %}
+                    <!-- Host -->
+                    <tr class="border-b bg-gray-800 border-gray-700">
+                        <th scope="row" class="py-4 px-6"><a href="{{ domain }}hosts/view?host={{ h }}">{{ h }}</a></th>
+                        <th class="center py-4 px-6"><a href="{{ domain }}hosts/view?host={{ h }}">{{ data["Data"][h]["Name"] }}</a></th>
+                        <th class="center py-4 px-6">{{ data["Data"][h]["LastBackup"] }}</th>
+                        <th class="center py-4 px-6">
+                            <!-- Options -->
+                            <div id="dropdownDots{{ h }}" class="hidden z-10 w-44 rounded divide-y shadow bg-gray-700 divide-gray-600">
+                                <ul class="py-1 text-sm ttext-gray-200" aria-labelledby="dropdownMenuIconButton">
+                                    <!-- View -->
+                                    <li><a href="{{ domain }}hosts/view?host={{ h }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.view }}</a></li>
+                                    <!-- Delete -->
+                                    <li><a href="{{ domain }}hosts/delete?host={{ h }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.delete }}</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Options -->
+                            
+                            <!-- Button -->
+                            <button id="dropdownMenuIconHorizontalButton" data-dropdown-toggle="dropdownDots{{ h }}" class="inline-flex items-center p-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none text-white bg-gray-800 hover:bg-gray-700 focus:ring-gray-600" type="button"> 
+                              <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                            </button>
+                            <!-- End Button -->
+                        </th>
+                    </tr>
+                    <!-- End Host -->
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- End Host table -->
+</div>
+{% endblock %}

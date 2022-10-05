@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "host": "duplicati_dashboard_database",
+        "user": "dashboard",
+        "password": "dashboard",
+        "database": "dashboard"
+    }
+}

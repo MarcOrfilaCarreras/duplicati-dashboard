@@ -1,0 +1,91 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    margin: 2vw;
+}
+
+.sidebar > div {
+    height: 90vh !important;
+}
+
+.content {
+    margin-top: 2vw;
+}
+
+.space {
+    margin-bottom: 1vw;
+    margin-top: 1vw;
+}
+
+.list {
+    width: 80vw !important;
+}
+
+.center  {
+    text-align: center;
+}
+
+.flash {
+    -webkit-animation: out 5s forwards; 
+    animation: out 5s forwards;
+}
+
+/* animations */
+
+@keyframes out {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-webkit-keyframes out {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+/* responsive ? */
+
+@media (max-width: 768px) {
+    .list {
+        width: 22vw !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .list {
+        width: 55vw !important;
+    }
+}
+
+@media (min-width: 870px) {
+    .list {
+        width: 62vw !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .list {
+        width: 68vw !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .list {
+        width: 74vw !important;
+    }
+}
+
+@media (min-width: 1536px) {
+    .list {
+        width: 78vw !important;
+    }
+}
+
+@media (min-width: 1800px) {
+    .list {
+        width: 80vw !important;
+    }
+}

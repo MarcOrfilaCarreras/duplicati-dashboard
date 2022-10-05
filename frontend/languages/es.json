@@ -1,0 +1,20 @@
+{
+    "hosts": "Equipos",
+    "tasks": "Tareas",
+    "options": "Opciones",
+    "add_host": "Añadir equipo",
+    "id": "ID",
+    "name": "Nombre",
+    "last_backup": "Última copia de seguridad",
+    "task_versions": "Versiones",
+    "creation_date": "Fecha de creación",
+    "actions": "Acciones",
+    "host": "Equipo",
+    "result": "Resultado",
+    "submit": "Enviar",
+    "size": "Tamaño",
+    "view": "Ver",
+    "delete": "Eliminar",
+    "generated_by_the_program": "Generado por el programa",
+    "name_hint": "Mi Pc"
+}

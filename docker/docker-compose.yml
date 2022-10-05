@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  database:
+    image: mariadb
+    container_name: duplicati_dashboard_database
+    environment:
+        MARIADB_ROOT_PASSWORD: root
+        MARIADB_USER: dashboard
+        MARIADB_PASSWORD: dashboard
+        MARIADB_DATABASE: dashboard
+
+  backend:
+    image: ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
+    container_name: duplicati_dashboard_backend
+    ports:
+      - "7575:80"
+    depends_on:
+      - database
+  
+  frontend:
+    image: ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
+    container_name: duplicati_dashboard_frontend
+    ports:
+      - "6565:80"
+    depends_on:
+      - backend
