@@ -26,13 +26,7 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build backend
-        run: docker build -f ./docker/Backend . -t ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
-      
-      - name: Push
-        run: docker push ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
+        run: docker buildx build --push -t ghcr.io/marcorfilacarreras/duplicati-dashboard:backend --platform linux/arm/v7,linux/arm64,linux/amd64 --file docker/Backend .
 
       - name: Build frontend
-        run: docker build -f ./docker/Backend . -t ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
-      
-      - name: Push
-        run: docker push ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
+        run: docker buildx build --push -t ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend --platform linux/arm/v7,linux/arm64,linux/amd64 --file docker/Frontend .

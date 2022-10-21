@@ -1,5 +1,5 @@
 import json, random, string
-import mysql.connector
+import pymysql
 
 host = None
 user = None
@@ -29,7 +29,7 @@ def loadSettings():
 def databaseConnection():
     global host, user, password, database
 
-    db = mysql.connector.connect(
+    db = pymysql.connect(
         host=host,
         user=user,
         password=password,
@@ -60,9 +60,8 @@ def apiHostsList():
                 host_json = {"Name": row[1], "DateCreated": row[2], "LastBackup": row[3]}
                 response["Data"][row[0]] = host_json
 
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
 
         db.commit()
         db.close()
@@ -101,10 +100,9 @@ def apiHostsGenerate():
                     stop = False
                     response = {"Data": {"Status": "Ok", "Result": id}}
 
-            except mysql.connector.Error as err:
+            except pymysql.Error as err:
                 stop = False
-                if err.errno == 1146:
-                    response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
 
         except Exception as e:
             stop = False
@@ -124,18 +122,17 @@ def apiHostsAdd(id, name):
 
         try:
             sql = """INSERT INTO hosts (id, name) Values ((%s), (%s))"""
-            cursor.execute(sql, (id, name), multi=True)
+            cursor.execute(sql, (id, name))
 
             response = {"Data": {"Status": "Ok", "Result": "The host was added to the database"}}
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
-            elif err.errno == 1062:
-                response = {"Data": {"Status": "Bad", "Result": "The ID for the host already exists"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+            response = {"Data": {"Status": "Bad", "Result": "The ID for the host already exists"}}
         
         db.commit()
         db.close()
     except Exception as e:
+        print(e)
         response = {"Data": {"Status": "Bad", "Result": "There was an error when connecting to the database"}}
 
     return response
@@ -162,9 +159,8 @@ def apiHostsView(host_id):
                 host_json = {"Name": row[1],"Host": row[2], "DateCreated": row[3], "LastBackup": row[4], "KnownFileSize": row[5], "ParsedResult": row[6], "BackupCountList": row[7]}
                 response["Data"][row[0]] = host_json
         
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
         
         db.commit()
         db.close()
@@ -192,9 +188,8 @@ def apiHostsDelete(host_id):
             else:
                 response = {"Data": {"Status": "Bad", "Result": "The host was not deleted from the database"}}
         
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
         
         db.commit()
         db.close()
@@ -225,9 +220,8 @@ def apiTasksList():
                 host_json = {"Name": row[1],"Host": row[2], "DateCreated": row[3], "LastBackup": row[4], "KnownFileSize": row[5], "ParsedResult": row[6], "BackupCountList": row[7]}
                 response["Data"][row[0]] = host_json
 
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
 
         db.commit()
         db.close()
@@ -250,7 +244,7 @@ def apiTasksView(host_id, task_id):
 
         try:
             sql = """SELECT * FROM tasks where id = (%s) and host = (%s)"""
-            cursor.execute(sql, (task_id, host_id), multi=True)
+            cursor.execute(sql, (task_id, host_id))
 
             result = cursor.fetchall()
 
@@ -260,9 +254,8 @@ def apiTasksView(host_id, task_id):
                 host_json = {"Name": row[1],"Host": row[2], "DateCreated": row[3], "LastBackup": row[4], "KnownFileSize": row[5], "ParsedResult": row[6], "BackupCountList": row[7]}
                 response["Data"][row[0]] = host_json
 
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
         
         db.commit()
         db.close()
@@ -288,21 +281,20 @@ def apiTasksAdd(host_id, content):
 
         try:
             sql = """SELECT name FROM tasks where name = (%s) and host = (%s)"""
-            cursor.execute(sql, (name, host_id), multi=True)
+            cursor.execute(sql, (name, host_id))
             result = cursor.fetchall()
 
             if not result:
                 sql = """INSERT INTO tasks (name, host, last_backup, known_file_size, parsed_result, backup_count_list) Values ((%s), (%s), current_timestamp(), (%s), (%s), (%s))"""
-                cursor.execute(sql, (name, host_id, known_file_size, parsed_result, backup_list_count), multi=True)
+                cursor.execute(sql, (name, host_id, known_file_size, parsed_result, backup_list_count))
                 response = {"Data": {"Status": "Ok", "Result": "The task was added to the database"}}
             else:
                 sql = """UPDATE tasks SET last_backup = current_timestamp(), known_file_size = (%s), parsed_result = (%s), backup_count_list = (%s) WHERE name = (%s) and host = (%s)"""
-                cursor.execute(sql, (known_file_size, parsed_result, backup_list_count, name, host_id), multi=True)
+                cursor.execute(sql, (known_file_size, parsed_result, backup_list_count, name, host_id))
                 response = {"Data": {"Status": "Ok", "Result": "The task was updated in the database"}}
 
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
         
         db.commit()
         db.close()
@@ -330,9 +322,8 @@ def apiTasksDelete(task):
             else:
                 response = {"Data": {"Status": "Bad", "Result": "The task was not deleted from the database"}}
         
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
+        except pymysql.Error as err:
+            response = {"Data": {"Status": "Bad", "Result": "The database did not exist"}}
         
         db.commit()
         db.close()
@@ -364,12 +355,11 @@ def apiDatabaseCheck():
             else:
                 response["Data"]["Results"]["Hosts"] = "The database exists and has data"
 
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                sql = """CREATE TABLE IF NOT EXISTS hosts (id varchar(12) NOT NULL PRIMARY KEY, name varchar(200) NOT NULL, date_created datetime NOT NULL DEFAULT current_timestamp(), last_backup datetime DEFAULT NULL);"""
-                cursor.execute(sql)
-                
-                response["Data"]["Results"]["Hosts"] = "The database did not exist but has been created and is empty"
+        except pymysql.Error as err:
+            sql = """CREATE TABLE IF NOT EXISTS hosts (id varchar(12) NOT NULL PRIMARY KEY, name varchar(200) NOT NULL, date_created datetime NOT NULL DEFAULT current_timestamp(), last_backup datetime DEFAULT NULL);"""
+            cursor.execute(sql)
+            
+            response["Data"]["Results"]["Hosts"] = "The database did not exist but has been created and is empty"
         
         try:
             sql="""SELECT 1 FROM tasks"""
@@ -382,12 +372,11 @@ def apiDatabaseCheck():
             else:
                 response["Data"]["Results"]["Tasks"] = "The database exists and has data"
 
-        except mysql.connector.Error as err:
-            if err.errno == 1146:
-                sql = """CREATE TABLE IF NOT EXISTS tasks (id int(12) NOT NULL PRIMARY KEY AUTO_INCREMENT, name varchar(200) NOT NULL, host varchar(12) NOT NULL REFERENCES hosts(id) ON DELETE CASCADE ON UPDATE CASCADE, date_created datetime NOT NULL DEFAULT current_timestamp(), last_backup datetime DEFAULT NULL, known_file_size float NOT NULL DEFAULT 0, parsed_result varchar(50), backup_count_list int(11) NOT NULL DEFAULT 0);"""
-                cursor.execute(sql)
-                
-                response["Data"]["Results"]["Tasks"] = "The database did not exist but has been created and is empty"
+        except pymysql.Error as err:
+            sql = """CREATE TABLE IF NOT EXISTS tasks (id int(12) NOT NULL PRIMARY KEY AUTO_INCREMENT, name varchar(200) NOT NULL, host varchar(12) NOT NULL REFERENCES hosts(id) ON DELETE CASCADE ON UPDATE CASCADE, date_created datetime NOT NULL DEFAULT current_timestamp(), last_backup datetime DEFAULT NULL, known_file_size float NOT NULL DEFAULT 0, parsed_result varchar(50), backup_count_list int(11) NOT NULL DEFAULT 0);"""
+            cursor.execute(sql)
+            
+            response["Data"]["Results"]["Tasks"] = "The database did not exist but has been created and is empty"
         db.commit()
         db.close()
 
