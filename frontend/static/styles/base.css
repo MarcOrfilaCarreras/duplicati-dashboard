@@ -29,22 +29,21 @@ html, body {
 }
 
 .flash {
-    -webkit-animation: out 5s forwards; 
-    animation: out 5s forwards;
+    position: absolute;
+    bottom: 2vw;
+    right: 2vw;
+    animation: in 0.25s;
+}
+
+@keyframes in {
+    0%   {opacity: 0;}
+    25%  {opacity: 25%;}
+    50%  {opacity: 50%;}
+    100% {opacity: 100%;}
 }
 
 /* animations */
 
-@keyframes out {
-    0%   {opacity: 1;}
-    90%  {opacity: 1;}
-    100% {opacity: 0;}
-}
-@-webkit-keyframes out {
-    0%   {opacity: 1;}
-    90%  {opacity: 1;}
-    100% {opacity: 0;}
-}
 
 /* responsive ? */
 

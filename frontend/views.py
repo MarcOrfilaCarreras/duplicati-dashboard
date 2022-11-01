@@ -81,6 +81,8 @@ def viewHostsCreatePost():
     r = requests.get(url)
     data = json.loads(r.text)
 
+    flash(data["Data"]["Result"])
+
     return redirect(url_for("viewHostsList"))
 
 def viewHostsView():
@@ -102,6 +104,8 @@ def viewHostsDelete():
     url = api + "/api/hosts/delete?host=" + request.args.get("host")
     r = requests.get(url)
     data = json.loads(r.text)
+
+    flash(data["Data"]["Result"])
 
     return redirect(url_for("viewHostsList"))
 
@@ -125,6 +129,8 @@ def viewTasksDelete():
     r = requests.get(url)
     data = json.loads(r.text)
 
+    flash(data["Data"]["Result"])
+
     return redirect(url_for("viewHostsList"))
 
 def viewSettingsView():
@@ -136,8 +142,6 @@ def viewSettingsView():
     r = requests.get(url)
     data = json.loads(r.text)
 
-    print(data)
-
     return render_template("settings/view.html", data=data, text=language(), domain=request.url_root)
 
 def viewSettingsModify():
@@ -148,5 +152,7 @@ def viewSettingsModify():
     url = api + "/api/database/settings/modify?host=" + request.form.get("host") + "&database=" + request.form.get("database") + "&user=" + request.form.get("user") + "&password=" + request.form.get("password")
     r = requests.get(url)
     data = json.loads(r.text)
+
+    flash(data["Data"]["Result"])
 
     return redirect(url_for("viewSettingsView"))
