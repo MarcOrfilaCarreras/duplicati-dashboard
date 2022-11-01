@@ -52,11 +52,19 @@ html, body {
     .list {
         width: 22vw !important;
     }
+
+    .form-grid{
+        width: 60vw !important;
+    }
 }
 
 @media (min-width: 768px) {
     .list {
         width: 55vw !important;
+    }
+
+    .form-grid{
+        width: 60vw !important;
     }
 }
 
@@ -64,17 +72,29 @@ html, body {
     .list {
         width: 62vw !important;
     }
+
+    .form-grid{
+        width: 65vw !important;
+    }
 }
 
 @media (min-width: 1024px) {
     .list {
         width: 68vw !important;
     }
+
+    .form-grid{
+        width: 70vw !important;
+    }
 }
 
 @media (min-width: 1280px) {
     .list {
         width: 74vw !important;
+    }
+
+    .form-grid{
+        width: 75vw !important;
     }
 }
 

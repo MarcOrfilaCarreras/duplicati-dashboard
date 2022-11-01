@@ -6,7 +6,7 @@
     <h1 class="items-center text-3xl font-extrabold text-white flex">{{ text.settings }}</h1>
         <!-- Form -->
         <form action="{{ url_for('viewSettingsModify') }}" method="post">
-            <div class="grid gap-6 mb-6 md:grid-cols-4">
+            <div class="form-grid grid gap-6 mb-6 md:grid-cols-4">
                 <div>
                     <label for="host" class="space block mb-2 text-sm font-medium text-gray-300">{{ text.host }}</label>
                     <input type="text" name="host" id="host" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" value="{{ data['settings']['host'] }}" required="">
