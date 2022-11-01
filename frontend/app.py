@@ -15,5 +15,8 @@ app.add_url_rule('/hosts/delete', view_func=views.viewHostsDelete)
 app.add_url_rule('/tasks', view_func=views.viewTasksList)
 app.add_url_rule('/tasks/delete', view_func=views.viewTasksDelete)
 
+app.add_url_rule('/settings/view', view_func=views.viewSettingsView)
+app.add_url_rule('/settings/modify', methods=["POST"], view_func=views.viewSettingsModify)
+
 if __name__ == "__main__":
     app.run()

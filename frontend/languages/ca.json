@@ -16,5 +16,9 @@
     "view": "Veure",
     "delete": "Eliminar",
     "generated_by_the_program": "Generat pel programa",
-    "name_hint": "El meu Pc"
+    "name_hint": "El meu Pc",
+    "settings": "Configuració",
+    "database": "Base de dades",
+    "user": "Usuari",
+    "password": "Contrasenya"
 }

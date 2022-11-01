@@ -16,5 +16,9 @@
     "view": "Ver",
     "delete": "Eliminar",
     "generated_by_the_program": "Generado por el programa",
-    "name_hint": "Mi Pc"
+    "name_hint": "Mi Pc",
+    "settings": "Ajustes",
+    "database": "Base de datos",
+    "user": "Usuario",
+    "password": "Contraseña"
 }

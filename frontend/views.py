@@ -126,3 +126,27 @@ def viewTasksDelete():
     data = json.loads(r.text)
 
     return redirect(url_for("viewHostsList"))
+
+def viewSettingsView():
+    global api
+    if api is None:
+            config()
+
+    url = api + "/api/database/settings/view"
+    r = requests.get(url)
+    data = json.loads(r.text)
+
+    print(data)
+
+    return render_template("settings/view.html", data=data, text=language(), domain=request.url_root)
+
+def viewSettingsModify():
+    global api
+    if api is None:
+            config()
+
+    url = api + "/api/database/settings/modify?host=" + request.form.get("host") + "&database=" + request.form.get("database") + "&user=" + request.form.get("user") + "&password=" + request.form.get("password")
+    r = requests.get(url)
+    data = json.loads(r.text)
+
+    return redirect(url_for("viewSettingsView"))
