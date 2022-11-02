@@ -1,12 +1,18 @@
-<h1 align="center">Duplicati dashboard</h1>
-
 <div align="center">
 
 [![License](https://img.shields.io/github/license/MarcOrfilaCarreras/duplicati-dashboard?style=flat)](https://github.com/MarcOrfilaCarreras/duplicati-dashboard) &nbsp; ![Docker](https://img.shields.io/github/workflow/status/MarcOrfilaCarreras/duplicati-dashboard/docker?label=docker&style=flat) &nbsp; ![Last commit](https://img.shields.io/github/last-commit/MarcOrfilaCarreras/duplicati-dashboard?style=flat) &nbsp; [![Crowdin](https://badges.crowdin.net/duplicati-dashboard/localized.svg)](https://crowdin.com/project/duplicati-dashboard)
 
 </div>
 
-## Getting Started
+<div align="center">
+    <h1>Duplicati dashboard</h1>
+    <h4> A simple DASHBOARD for monitoring you Duplicati instances</h4>
+    <a href="https://github.com/MarcOrfilaCarreras/duplicati-dashboard/wiki">Explore the docs</a>
+</div>
+
+<br>
+
+## :arrow_right: Getting Started
 
 ### Installation
 
@@ -36,6 +42,17 @@ Finally, you will be able to start the containers.
 docker-compose up -d
 ```
 
-## License
+<br>
+
+## :hammer: Roadmap
+
+- [ ] Add historical data
+- [ ] Add some charts
+
+See the [open issues](https://github.com/MarcOrfilaCarreras/duplicati-dashboard/issues) for a full list of proposed features (and known issues).
+
+<br>
+
+## :key: License
 
 Distributed under the MIT License. See `LICENSE` for more information.
