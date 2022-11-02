@@ -12,14 +12,30 @@
 
 The best way to install this software is using Docker.
 
-You will need to download the docker-compose file.
+First, download the backend image from the Github repository.
 
 ```
+docker pull ghcr.io/marcorfilacarreras/duplicati-dashboard:backend
+```
+
+Also, download the frontend image.
+
+```
+docker pull ghcr.io/marcorfilacarreras/duplicati-dashboard:frontend
+```
+
+Then, you will have to download the [*docker-compose.yml*](https://raw.githubusercontent.com/MarcOrfilaCarreras/duplicati-dashboard/master/docker/docker-compose.yml) file with the following command.
+
+``` bash
 wget https://raw.githubusercontent.com/MarcOrfilaCarreras/duplicati-dashboard/master/docker/docker-compose.yml
 ```
 
-Then, you will be able to run:
+Finally, you will be able to start the containers.
 
 ```
 docker-compose up -d
 ```
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
