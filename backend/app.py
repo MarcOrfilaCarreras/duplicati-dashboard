@@ -41,7 +41,13 @@ def apiTasksList():
 
 @app.route("/api/tasks/view")
 def apiTasksView():
-    response = api.apiTasksView(request.args.get("host"), request.args.get("task"))
+    response = api.apiTasksView(request.args.get("task"))
+
+    return jsonify(response)
+
+@app.route("/api/tasks/history")
+def apiTasksHistory():
+    response = api.apiTasksHistory(request.args.get("task"))
 
     return jsonify(response)
 

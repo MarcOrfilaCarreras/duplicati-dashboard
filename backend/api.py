@@ -227,7 +227,7 @@ def apiTasksList():
     
     return response
 
-def apiTasksView(host_id, task_id):
+def apiTasksView(task_id):
     global host, user, password, database
     response = {}
     try:
@@ -238,8 +238,8 @@ def apiTasksView(host_id, task_id):
 
         cursor = db.cursor()
 
-        sql = """SELECT * FROM tasks where id = (%s) and host = (%s)"""
-        cursor.execute(sql, (task_id, host_id))
+        sql = """SELECT * FROM tasks where id = (%s)"""
+        cursor.execute(sql, (task_id))
 
         result = cursor.fetchall()
 
@@ -247,6 +247,37 @@ def apiTasksView(host_id, task_id):
 
         for row in result:
             host_json = {"Name": row[1],"Host": row[2], "DateCreated": row[3], "LastBackup": row[4], "KnownFileSize": row[5], "ParsedResult": row[6], "BackupCountList": row[7]}
+            response["Data"][row[0]] = host_json
+
+        db.commit()
+        db.close()
+    except pymysql.Error as e:
+            response = {"Data": {"Status": "Bad", "Result": e.args[1]}}
+
+    except Exception as e:
+        response = {"Data": {"Status": "Bad", "Result": "There was an error when connecting to the database"}}
+    
+    return response
+
+def apiTasksHistory(task_id):
+    global host, user, password, database
+    response = {}
+    try:
+        if host is None or user is None or password is None or database is None:
+            loadSettings()
+
+        db = databaseConnection()
+
+        cursor = db.cursor()
+
+        sql = """SELECT * FROM tasks_history where task = (%s)"""
+        cursor.execute(sql, (task_id, ))
+        result = cursor.fetchall()
+
+        response = {"Data": {}}
+
+        for row in result:
+            host_json = {"Date": row[2], "KnownFileSize": row[3], "ParsedResult": row[4]}
             response["Data"][row[0]] = host_json
 
         db.commit()
@@ -371,6 +402,34 @@ def apiDatabaseCheck():
                 cursor.execute(sql)
                 
                 response["Data"]["Results"]["Tasks"] = "The database did not exist but has been created and is empty"
+        
+        try:
+            sql="""SELECT 1 FROM tasks_history"""
+            cursor.execute(sql)
+
+            result = cursor.fetchall()
+
+            if result == []:
+                response["Data"]["Results"]["Tasks History"] = "The database exists but is empty"
+            else:
+                response["Data"]["Results"]["Tasks History"] = "The database exists and has data"
+
+        except pymysql.Error as e:
+            if e.args[0] == 1146:
+                sql = """CREATE TABLE IF NOT EXISTS tasks_history (id int(12) NOT NULL PRIMARY KEY AUTO_INCREMENT, task int(12) NOT NULL REFERENCES tasks(id) ON DELETE CASCADE ON UPDATE CASCADE, date datetime NOT NULL DEFAULT current_timestamp(), known_file_size float NOT NULL DEFAULT 0, parsed_result varchar(50));"""
+                cursor.execute(sql)
+                
+                response["Data"]["Results"]["Tasks History"] = "The database did not exist but has been created and is empty"
+        
+        try:
+            sql="""CREATE TRIGGER IF NOT EXISTS add_to_history AFTER UPDATE ON tasks FOR EACH ROW INSERT INTO tasks_history(task, date, known_file_size, parsed_result) VALUES(old.id, old.last_backup, old.known_file_size, old.parsed_result);"""
+            cursor.execute(sql)
+
+            response["Data"]["Results"]["Trigger"] = "The trigger was created or already existed"
+
+        except pymysql.Error as e:
+            response["Data"]["Results"]["Trigger"] = "There was an error when creating the trigger"
+
         db.commit()
         db.close()
 
