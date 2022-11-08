@@ -52,13 +52,17 @@ html, body {
         width: 22vw !important;
     }
 
+    .stats {
+        display: none;
+    }
+
     .form-grid{
         width: 60vw !important;
     }
 }
 
 @media (min-width: 768px) {
-    .list {
+    .list, .stats {
         width: 55vw !important;
     }
 
@@ -68,7 +72,7 @@ html, body {
 }
 
 @media (min-width: 870px) {
-    .list {
+    .list, .stats {
         width: 62vw !important;
     }
 
@@ -78,7 +82,7 @@ html, body {
 }
 
 @media (min-width: 1024px) {
-    .list {
+    .list, .stats{
         width: 68vw !important;
     }
 
@@ -88,7 +92,7 @@ html, body {
 }
 
 @media (min-width: 1280px) {
-    .list {
+    .list, .stats {
         width: 74vw !important;
     }
 
@@ -98,13 +102,13 @@ html, body {
 }
 
 @media (min-width: 1536px) {
-    .list {
+    .list, .stats{
         width: 78vw !important;
     }
 }
 
 @media (min-width: 1800px) {
-    .list {
+    .list, .stats{
         width: 80vw !important;
     }
 }

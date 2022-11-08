@@ -118,7 +118,22 @@ def viewTasksList():
     r = requests.get(url)
     data = json.loads(r.text)
 
-    return render_template("tasks/list.html", data=data, text=language(), domain=request.url_root, host=request.args.get("host"))
+    return render_template("tasks/list.html", data=data, text=language(), domain=request.url_root, previous_url=request.referrer)
+
+def viewTasksView():
+    global api
+    if api is None:
+            config()
+
+    url = api + "/api/tasks/history?task=" + request.args.get("task")
+    r = requests.get(url)
+    data_history = json.loads(r.text)
+
+    url = api + "/api/tasks/view?task=" + request.args.get("task")
+    r = requests.get(url)
+    data = json.loads(r.text)
+
+    return render_template("tasks/view.html", data=data, data_history=data_history, text=language(), domain=request.url_root, previous_url=request.referrer, task=request.args.get("task"))
 
 def viewTasksDelete():
     global api

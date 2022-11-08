@@ -3,7 +3,7 @@
 {% block content %}
 <div class="content">
     <!-- Title -->
-    <h1 class="items-center text-3xl font-extrabold text-white flex">{{ host }}</h1>
+    <h1 class="items-center text-3xl font-extrabold text-white flex"><a href="{{ url_for('viewHostsList') }}"><svg class="w-6 h-6" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg></a>&nbsp;{{ host }}</h1>
     
     <!-- Dropdown button -->
     <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="space text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type="button">{{ text.options }} <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
@@ -34,17 +34,31 @@
                 {% for h in data["Data"] %}
                     <!-- Task -->
                     <tr class="border-b bg-gray-800 border-gray-700">
-                        <th scope="row" class="py-4 px-6">{{ h }}</th>
-                        <th class="center py-4 px-6">{{ data["Data"][h]["Name"] }}</th>
+                        <th scope="row" class="py-4 px-6"><a href="{{ domain }}tasks/view?task={{ h }}">{{ h }}</a></th>
+                        <th class="center py-4 px-6"><a href="{{ domain }}tasks/view?task={{ h }}">{{ data["Data"][h]["Name"] }}</a></th>
                         <th class="center py-4 px-6">{{ data["Data"][h]["DateCreated"] }}</th>
                         <th class="center py-4 px-6">{{ data["Data"][h]["LastBackup"] }}</th>
-                        <td class="center py-4 px-6">{{ data["Data"][h]["ParsedResult"] }}</td>
+                        <!-- Result -->
+                        <td class="center py-4 px-6">
+                            {% if data["Data"][h]["ParsedResult"] == "Success" %}
+                                <div class="flex items-center" style="text-align: center; justify-content: center;">
+                                    <div class="h-2.5 w-2.5 rounded-full bg-green-400"></div>&nbsp;{{ data["Data"][h]["ParsedResult"] }}
+                                </div>
+                            {% else %}
+                                <div class="flex items-center" style="text-align: center; justify-content: center;">
+                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500"></div>&nbsp;{{ data["Data"][h]["ParsedResult"] }}
+                                </div>
+                            {% endif%}
+                        </td>
+                        <!-- End Result -->
                         <td class="center py-4 px-6">{{ data["Data"][h]["BackupCountList"] }}</td>
                         <td class="center py-4 px-6">{{ data["Data"][h]["KnownFileSize"] }} MB</td>
                         <td class="center py-4 px-6">
                             <!-- Options -->
                             <div id="dropdownDots{{ h }}" class="hidden z-10 w-44 rounded divide-y shadow bg-gray-700 divide-gray-600">
                                 <ul class="py-1 text-sm ttext-gray-200" aria-labelledby="dropdownMenuIconButton">
+                                    <!-- View -->
+                                    <li><a href="{{ domain }}tasks/view?task={{ h }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.view }}</a></li>
                                     <!-- Delete -->
                                     <li><a href="{{ domain }}tasks/delete?id={{ h }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.delete }}</a></li>
                                 </ul>

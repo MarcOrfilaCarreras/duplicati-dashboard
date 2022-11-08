@@ -6,6 +6,7 @@
     "id": "ID",
     "name": "Nombre",
     "last_backup": "Última copia de seguridad",
+    "date": "Fecha",
     "task_versions": "Versiones",
     "creation_date": "Fecha de creación",
     "actions": "Acciones",

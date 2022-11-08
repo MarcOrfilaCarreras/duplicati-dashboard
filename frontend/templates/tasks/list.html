@@ -18,7 +18,7 @@
                     <th scope="col" class="center py-3 px-6">{{ text.creation_date }}</th>
                     <th scope="col" class="center py-3 px-6">{{ text.last_backup }}</th>
                     <th scope="col" class="center py-3 px-6">{{ text.result }}</th>
-                    <th scope="col" class="center py-3 px-6">{{ text.tasks_versions }}</th>
+                    <th scope="col" class="center py-3 px-6">{{ text.task_versions }}</th>
                     <th scope="col" class="center py-3 px-6">{{ text.size }}</th>
                     <th scope="col" class="center py-3 px-6">{{ text.actions}}</th>
                 </tr>
@@ -27,18 +27,32 @@
                 {% for h in data["Data"] %}
                     <!-- Task -->
                     <tr class="border-b bg-gray-800 border-gray-700">
-                        <th scope="row" class="py-4 px-6">{{ h }}</th>
-                        <th class="center py-4 px-6">{{ data["Data"][h]["Name"] }}</th>
+                        <th scope="row" class="py-4 px-6"><a href="{{ domain }}tasks/view?task={{ h }}">{{ h }}</a></th>
+                        <th class="center py-4 px-6"><a href="{{ domain }}tasks/view?task={{ h }}">{{ data["Data"][h]["Name"] }}</a></th>
                         <th class="center py-4 px-6"><a href="{{ domain }}hosts/view?host={{ data['Data'][h]['Host'] }}">{{ data["Data"][h]["Host"] }}</a></th>
                         <th class="center py-4 px-6">{{ data["Data"][h]["DateCreated"] }}</th>
                         <th class="center py-4 px-6">{{ data["Data"][h]["LastBackup"] }}</th>
-                        <td class="center py-4 px-6">{{ data["Data"][h]["ParsedResult"] }}</td>
+                        <!-- Result -->
+                        <td class="center py-4 px-6">
+                            {% if data["Data"][h]["ParsedResult"] == "Success" %}
+                                <div class="flex items-center" style="text-align: center; justify-content: center;">
+                                    <div class="h-2.5 w-2.5 rounded-full bg-green-400"></div>&nbsp;{{ data["Data"][h]["ParsedResult"] }}
+                                </div>
+                            {% else %}
+                                <div class="flex items-center" style="text-align: center; justify-content: center;">
+                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500"></div>&nbsp;{{ data["Data"][h]["ParsedResult"] }}
+                                </div>
+                            {% endif%}
+                        </td>
+                        <!-- End Result -->
                         <td class="center py-4 px-6">{{ data["Data"][h]["BackupCountList"] }}</td>
-                        <td class="center py-4 px-6">{{ data["Data"][h]["KnownFileSize"] }}</td>
+                        <td class="center py-4 px-6">{{ data["Data"][h]["KnownFileSize"] }} MB</td>
                         <td class="center py-4 px-6">
                             <!-- Options -->
                             <div id="dropdownDots{{ h }}" class="hidden z-10 w-44 rounded divide-y shadow bg-gray-700 divide-gray-600">
                                 <ul class="py-1 text-sm ttext-gray-200" aria-labelledby="dropdownMenuIconButton">
+                                    <!-- View -->
+                                    <li><a href="{{ domain }}tasks/view?task={{ h }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.view }}</a></li>
                                     <!-- Delete -->
                                     <li><a href="{{ domain }}tasks/delete?id={{ h }}" class="block py-2 px-4 hover:bg-gray-600 hover:text-white">{{ text.delete }}</a></li>
                                 </ul>
