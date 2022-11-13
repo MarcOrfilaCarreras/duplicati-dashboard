@@ -6,6 +6,8 @@ app = Flask(__name__)
 app.secret_key = "5#y2LF4Q8z\n\xec]/"
 
 app.add_url_rule('/', view_func=views.viewIndex)
+app.add_url_rule('/stats', view_func=views.viewStats)
+
 app.add_url_rule('/hosts', view_func=views.viewHostsList)
 app.add_url_rule('/hosts/create', view_func=views.viewHostsCreate)
 app.add_url_rule('/hosts/create', methods=["POST"], view_func=views.viewHostsCreatePost)

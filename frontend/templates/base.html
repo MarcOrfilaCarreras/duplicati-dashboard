@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body style="background: #111827;">
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
@@ -28,6 +29,12 @@
       <aside class="sidebar w-64" aria-label="Sidebar">
         <div class="overflow-y-auto py-4 px-3 rounded bg-gray-800">          
           <ul class="space-y-2">
+            <li>
+              <a href="{{ url_for('viewStats') }}" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">{{ text.stats }}</span>
+              </a>
+            </li>
             <li>
               <a href="{{ url_for('viewHostsList') }}" class="flex items-center p-2 text-base font-normal rounded-lg text-white hover:bg-gray-700">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg>

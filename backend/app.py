@@ -63,6 +63,12 @@ def apiTasksDelete():
 
     return jsonify(response)
 
+@app.route("/api/stats/tasks")
+def apiStatsTasks():
+    response = api.apiStatsTasks()
+
+    return jsonify(response)
+
 @app.route("/api/database/check")
 def apiDatabaseCheck():
     response = api.apiDatabaseCheck()

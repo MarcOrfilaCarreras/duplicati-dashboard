@@ -355,6 +355,49 @@ def apiTasksDelete(task):
     
     return response
 
+def apiStatsTasks():
+
+    global host, user, password, database
+    response = {}
+    try:
+        if host is None or user is None or password is None or database is None:
+            loadSettings()
+
+        db = databaseConnection()
+
+        cursor = db.cursor()
+
+        sql = """SELECT COUNT(parsed_result) FROM tasks where parsed_result = 'Success'"""
+        cursor.execute(sql)
+
+        result_success = cursor.fetchone()
+
+        sql = """SELECT COUNT(parsed_result) FROM tasks where parsed_result != 'Success'"""
+        cursor.execute(sql)
+
+        result_error = cursor.fetchone()
+
+        response = {}
+
+        if result_success is None:
+            result_success = 0
+        
+        if result_error is None:
+                    result_error = 0
+
+        stats_json = [ result_success[0], result_error[0] ]
+        response = (stats_json)
+
+        db.commit()
+        db.close()
+    except pymysql.Error as e:
+            response = {"Data": {"Status": "Bad", "Result": e.args[1]}}
+
+    except Exception as e:
+        response = {"Data": {"Status": "Bad", "Result": "There was an error when connecting to the database"}}
+
+    return response
+
 def apiDatabaseCheck():
     global host, user, password, database
 

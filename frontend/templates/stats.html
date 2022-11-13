@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+    <!-- Title -->
+    <h1 class="items-center text-3xl font-extrabold text-white flex">{{ text.stats }}</h1>
+
+    <div class="center">
+        <canvas class="space" id="tasks" width="250" height="250"></canvas>
+        <p>{{ text.total }}: {{ data|sum }}</p>
+    </div>
+</div>
+
+{% block javascript%}
+
+<script>
+    var d = {{ data | tojson | safe }};
+    var ctx = document.getElementById("tasks");
+    var myChart = new Chart(ctx, {
+        options: {
+            plugins: {
+                legend: { display: false},
+                title: {text: '{{ text.tasks }}', display: true, fullSize: true, color: 'white', font: { size: 20 }}
+            },
+            tooltips: {enabled: false},
+            hover: {mode: null},
+        },
+        type: 'doughnut',
+        data: {
+            labels: [
+                "{{ text.success }}",
+                "{{ text.error }}"
+            ],
+            datasets: [{
+                label: "test",
+                data: d,
+                backgroundColor: [
+                    "rgb(47, 204, 113)",
+                    "rgb(240, 84, 85)"
+                ],
+                borderWidth: [0, 0, 0, 0]
+            }]
+        },
+    });
+</script>
+
+{% endblock %}
+{% endblock %}

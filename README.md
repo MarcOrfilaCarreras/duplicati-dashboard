@@ -47,7 +47,7 @@ docker-compose up -d
 ## :hammer: Roadmap
 
 - [x] Add historical data
-- [ ] Add some charts
+- [ ] Add some charts (In progress)
 
 See the [open issues](https://github.com/MarcOrfilaCarreras/duplicati-dashboard/issues) for a full list of proposed features (and known issues).
 

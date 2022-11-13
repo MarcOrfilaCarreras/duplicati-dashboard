@@ -48,7 +48,18 @@ def viewIndex():
     url = api + "/api/database/check"
     r = requests.get(url)
 
-    return redirect(url_for("viewHostsList"))
+    return redirect(url_for("viewStats"))
+
+def viewStats():
+    global api
+    if api is None:
+            config()
+
+    url = api + "/api/stats/tasks"
+    r = requests.get(url)
+    data = json.loads(r.text)
+    
+    return render_template("stats.html", text=language(), data=data)
 
 def viewHostsList():
     global api
