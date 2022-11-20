@@ -14,6 +14,8 @@
     "host": "Host",
     "result": "Result",
     "submit": "Submit",
+    "close": "Close",
+    "test": "Test",
     "size": "Size",
     "view": "View",
     "delete": "Delete",
