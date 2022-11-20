@@ -29,17 +29,17 @@ html, body {
     color: white;
 }
 
-.stats {
+.stats-page {
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 25% 10% 65%;
 }
 
-.stats > div {
+.stats-page > div {
     width: 15vw;
 }
 
-.stats > div:nth-child(2) {
-    width: 30vw;
+.stats-page > div:nth-child(2) {
+    width: 35vw;
 
 }
 
@@ -63,8 +63,8 @@ html, body {
 /* responsive ? */
 
 @media (max-width: 768px) {
-    .list {
-        width: 22vw !important;
+    .list, .stats{
+        width: 50vw !important;
     }
 
     .form-grid{
@@ -113,13 +113,13 @@ html, body {
 }
 
 @media (min-width: 1536px) {
-    .list{
+    .list, .stats{
         width: 78vw !important;
     }
 }
 
 @media (min-width: 1800px) {
-    .list{
+    .list, .stats{
         width: 80vw !important;
     }
 }
