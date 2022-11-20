@@ -29,6 +29,20 @@ html, body {
     color: white;
 }
 
+.stats {
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+
+.stats > div {
+    width: 15vw;
+}
+
+.stats > div:nth-child(2) {
+    width: 30vw;
+
+}
+
 .flash {
     position: absolute;
     bottom: 2vw;
@@ -51,10 +65,6 @@ html, body {
 @media (max-width: 768px) {
     .list {
         width: 22vw !important;
-    }
-
-    .stats {
-        display: none;
     }
 
     .form-grid{
@@ -103,13 +113,13 @@ html, body {
 }
 
 @media (min-width: 1536px) {
-    .list, .stats{
+    .list{
         width: 78vw !important;
     }
 }
 
 @media (min-width: 1800px) {
-    .list, .stats{
+    .list{
         width: 80vw !important;
     }
 }

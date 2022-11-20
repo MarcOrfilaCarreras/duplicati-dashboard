@@ -5,16 +5,20 @@
     <!-- Title -->
     <h1 class="items-center text-3xl font-extrabold text-white flex">{{ text.stats }}</h1>
 
-    <div class="center">
-        <canvas class="space" id="tasks" width="250" height="250"></canvas>
-        <p>{{ text.total }}: {{ data|length }}</p>
+    <div class="stats">
+        <div style="grid-column: 1;">
+            <canvas class="space" id="tasks"></canvas>
+        </div>
+        <div style="grid-column: 2;">
+            <canvas class="space" id="backups-size"></canvas>
+        </div>
     </div>
 </div>
 
 {% block javascript%}
 
 <script>
-    var d = {{ data | tojson | safe }};
+    var d = {{ data_tasks | tojson | safe }};
     var ctx = document.getElementById("tasks");
     var myChart = new Chart(ctx, {
         options: {
@@ -41,6 +45,37 @@
                 borderWidth: [0, 0, 0, 0]
             }]
         },
+    });
+</script>
+
+<script>
+    const autocolors = window['chartjs-plugin-autocolors'];
+    var d = {{ data_size | tojson | safe }};
+    var ctx = document.getElementById("backups-size");
+
+    console.log(d);
+
+    var chart = new Chart(ctx, {
+        options: {
+            plugins: {
+                legend: { display: false},
+                title: {text: '{{ text.size }} (MB)', display: true, fullSize: true, color: 'white', font: { size: 20 }},
+                autocolors: {
+                    mode: 'data'
+                }
+            },
+            tooltips: {enabled: false},
+            hover: {mode: null},
+        },
+        type: 'bar',
+        data: {
+            datasets: [{
+                data: d
+            }],
+        },
+        plugins: [
+			autocolors
+        ]
     });
 </script>
 

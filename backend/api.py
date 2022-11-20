@@ -398,6 +398,41 @@ def apiStatsTasks():
 
     return response
 
+def apiStatsSize():
+
+    global host, user, password, database
+    response = {}
+    try:
+        if host is None or user is None or password is None or database is None:
+            loadSettings()
+
+        db = databaseConnection()
+
+        cursor = db.cursor()
+
+        sql = """SELECT hosts.name, ROUND(SUM(tasks.known_file_size), 2) FROM hosts INNER JOIN tasks ON (hosts.id = tasks.host) GROUP BY hosts.id, tasks.host"""
+        cursor.execute(sql)
+
+        result = cursor.fetchall()
+
+        response = []
+
+        if result is None:
+            result = 0
+
+        for r in result:
+            response.append({"x": r[0], "y": r[1]})
+            
+        db.commit()
+        db.close()
+    except pymysql.Error as e:
+            response = {"Data": {"Status": "Bad", "Result": e.args[1]}}
+
+    except Exception as e:
+        response = {"Data": {"Status": "Bad", "Result": "There was an error when connecting to the database"}}
+
+    return response
+
 def apiDatabaseCheck():
     global host, user, password, database
 

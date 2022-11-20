@@ -69,6 +69,12 @@ def apiStatsTasks():
 
     return jsonify(response)
 
+@app.route("/api/stats/size")
+def apiStatsSize():
+    response = api.apiStatsSize()
+
+    return jsonify(response)
+
 @app.route("/api/database/check")
 def apiDatabaseCheck():
     response = api.apiDatabaseCheck()

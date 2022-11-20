@@ -57,9 +57,13 @@ def viewStats():
 
     url = api + "/api/stats/tasks"
     r = requests.get(url)
-    data = json.loads(r.text)
+    data_tasks = json.loads(r.text)
+
+    url = api + "/api/stats/size"
+    r = requests.get(url)
+    data_size = json.loads(r.text)
     
-    return render_template("stats.html", text=language(), data=data)
+    return render_template("stats.html", text=language(), data_tasks=data_tasks, data_size=data_size)
 
 def viewHostsList():
     global api
