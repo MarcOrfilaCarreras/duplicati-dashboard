@@ -25,10 +25,48 @@
                 </div>
             </div>
             
+            <button type="button" id="check_database" class="space py-2.5 px-5 mr-2 mb-2 text-sm font-medium focus:outline-none rounded-lg border focus:z-10 focus:ring-4 ring-gray-700 bg-gray-800 text-gray-400 border-gray-600 hover:text-white hover:bg-gray-700" data-modal-toggle="defaultModal">{{ text.test }}</button>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{{ text.submit }}</button>
+            
+            <!-- Main modal -->
+            <div id="defaultModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 p-4 w-full md:inset-0 h-modal md:h-full">
+                <div class="relative w-full max-w-2xl h-full md:h-auto">
+                    <!-- Modal content -->
+                    <div class="relative rounded-lg shadow bg-gray-700">
+                        <!-- Modal body -->
+                        <div id="check_database_response" class="p-6 space-y-6 text-base leading-relaxed text-gray-400"></div>
+                        <!-- Modal footer -->
+                        <div class="flex items-center p-6 space-x-2 rounded-b">
+                            <button data-modal-toggle="defaultModal" type="button" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">{{ text.close }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
         <!-- End Form -->
     </div>
     <!-- End Tasks table -->
 </div>
+
+<script>
+    $("#check_database").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/settings/check",
+        success: function(result) {
+            $('#check_database_response').html("");
+            $('#check_database_response').append('<div class="space"><strong>Hosts</strong>: '+result["Data"]["Results"]["Hosts"]+'</>');
+            $('#check_database_response').append('<div class="space"><strong>Taks</strong>: '+result["Data"]["Results"]["Tasks"]+'</>');
+            $('#check_database_response').append('<div class="space"><strong>Tasks History</strong>: '+result["Data"]["Results"]["Tasks History"]+'</>');
+            $('#check_database_response').append('<div class="space"><strong>TriggerHistory</strong>: '+result["Data"]["Results"]["TriggerHistory"]+'</>');
+            $('#check_database_response').append('<div class="space"><strong>TriggerHost</strong>: '+result["Data"]["Results"]["TriggerHost"]+'</>');
+        },
+        error: function(result) {
+            $('#check_database_response').html("");
+            $('#check_database_response').append('<div class="space"><strong>Result</strong>: '+result["Data"]["Result"]+'</>');
+        }
+    });
+});
+</script>
 {% endblock %}

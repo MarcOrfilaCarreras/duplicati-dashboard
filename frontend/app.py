@@ -20,6 +20,7 @@ app.add_url_rule('/tasks/delete', view_func=views.viewTasksDelete)
 
 app.add_url_rule('/settings/view', view_func=views.viewSettingsView)
 app.add_url_rule('/settings/modify', methods=["POST"], view_func=views.viewSettingsModify)
+app.add_url_rule('/settings/check', view_func=views.viewSettingsCheck)
 
 @app.template_filter('strftime')
 def _jinja2_filter_datetime(date, fmt=None):

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 import json, requests
 
 api = None
@@ -186,3 +186,14 @@ def viewSettingsModify():
     flash(data["Data"]["Result"])
 
     return redirect(url_for("viewSettingsView"))
+
+def viewSettingsCheck():
+    global api
+    if api is None:
+            config()
+
+    url = api + "/api/database/check"
+    r = requests.get(url)
+    data = json.loads(r.text)
+
+    return jsonify(data)
