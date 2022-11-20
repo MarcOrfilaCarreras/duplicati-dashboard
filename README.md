@@ -47,7 +47,7 @@ docker-compose up -d
 ## :hammer: Roadmap
 
 - [x] Add historical data
-- [ ] Add some charts (2/3)
+- [x] Add some charts
 - [ ] Add caching
 - [ ] Add rate limiting
 - [ ] Update the wiki
