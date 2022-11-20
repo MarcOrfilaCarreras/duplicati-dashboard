@@ -503,10 +503,19 @@ def apiDatabaseCheck():
             sql="""CREATE TRIGGER IF NOT EXISTS add_to_history AFTER UPDATE ON tasks FOR EACH ROW INSERT INTO tasks_history(task, date, known_file_size, parsed_result) VALUES(old.id, old.last_backup, old.known_file_size, old.parsed_result);"""
             cursor.execute(sql)
 
-            response["Data"]["Results"]["Trigger"] = "The trigger was created or already existed"
+            response["Data"]["Results"]["TriggerHistory"] = "The trigger was created or already existed"
 
         except pymysql.Error as e:
-            response["Data"]["Results"]["Trigger"] = "There was an error when creating the trigger"
+            response["Data"]["Results"]["TriggerHistory"] = "There was an error when creating the trigger"
+
+        try:
+            sql="""CREATE TRIGGER IF NOT EXISTS update_host AFTER UPDATE ON tasks FOR EACH ROW UPDATE hosts SET hosts.last_backup = old.last_backup where hosts.id = old.host;"""
+            cursor.execute(sql)
+
+            response["Data"]["Results"]["TriggerHost"] = "The trigger was created or already existed"
+
+        except pymysql.Error as e:
+            response["Data"]["Results"]["TriggerHost"] = "There was an error when creating the trigger"
 
         db.commit()
         db.close()
