@@ -1,13 +1,12 @@
 <div align="center">
 
-[![License](https://img.shields.io/github/license/MarcOrfilaCarreras/duplicati-dashboard?style=flat)](https://github.com/MarcOrfilaCarreras/duplicati-dashboard) &nbsp; ![Docker](https://img.shields.io/github/workflow/status/MarcOrfilaCarreras/duplicati-dashboard/docker?label=docker&style=flat) &nbsp; ![Last commit](https://img.shields.io/github/last-commit/MarcOrfilaCarreras/duplicati-dashboard?style=flat) &nbsp; [![Crowdin](https://badges.crowdin.net/duplicati-dashboard/localized.svg)](https://crowdin.com/project/duplicati-dashboard)
+[![License](https://img.shields.io/github/license/MarcOrfilaCarreras/duplicati-dashboard?style=flat)](https://github.com/MarcOrfilaCarreras/duplicati-dashboard) &nbsp; ![Docker](https://img.shields.io/github/workflow/status/MarcOrfilaCarreras/duplicati-dashboard/docker?label=docker&style=flat) &nbsp; ![Last commit](https://img.shields.io/github/last-commit/MarcOrfilaCarreras/duplicati-dashboard?style=flat)
 
 </div>
 
 <div align="center">
     <h1>Duplicati dashboard</h1>
     <h4> A simple DASHBOARD for monitoring you Duplicati instances</h4>
-    <a href="https://github.com/MarcOrfilaCarreras/duplicati-dashboard/wiki">Explore the docs</a>
 </div>
 
 <br>
@@ -42,15 +41,19 @@ Finally, you will be able to start the containers.
 docker-compose up -d
 ```
 
+### Configuration
+In order to use this software, you will need to add two options to your Duplicati instance.
+
+- The first option is **send-http-result-output-format**, which will be set to **JSON**.
+
+- The other one is **send-http-url** which will be set to **http://host:port/api/tasks/add?host=id**, where **host** is the IP address of the server running the backend, port is the **port** number of the backend and **id** is the unique identifier of the host in the backend.
+
 <br>
 
 ## :hammer: Roadmap
 
 - [x] Add historical data
 - [x] Add some charts
-- [ ] Add caching
-- [ ] Add rate limiting
-- [ ] Update the wiki
 
 See the [open issues](https://github.com/MarcOrfilaCarreras/duplicati-dashboard/issues) for a full list of proposed features (and known issues).
 
