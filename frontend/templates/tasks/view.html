@@ -63,7 +63,7 @@
     
     <!-- Tasks table -->
     <div class="space overflow-x-auto relative shadow-md sm:rounded-lg">
-        <table class="list w-full text-sm text-left text-gray-400">
+        <table id="tasks" class="list w-full text-sm text-left text-gray-400">
             <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                 <tr>
                     <th scope="col" class="py-3 px-6">{{ text.id }}</th>
@@ -100,4 +100,14 @@
     </div>
     <!-- End Tasks table -->
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tasks").dataTable({
+            pageLength: 8,
+            info: false,
+            ordering: false
+        });
+    });
+</script>
 {% endblock %}

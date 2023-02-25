@@ -50,6 +50,39 @@ html, body {
     animation: in 0.25s;
 }
 
+.dataTables_length {
+    display: none;
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+.dataTables_paginate {
+    padding: 10px;
+    color: rgb(156 163 175);
+    text-align: center;
+    background-color: rgb(31 41 55);
+}
+
+.paginate_button {
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.paginate_button:hover {
+    color: white;
+}
+
+#tasks_previous {
+    margin-right: 20px;
+}
+
+#tasks_next {
+    margin-left: 20px;
+}
+
+
 @keyframes in {
     0%   {opacity: 0;}
     25%  {opacity: 25%;}
